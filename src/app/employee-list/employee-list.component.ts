@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {Observable, of} from "rxjs";
-import {HttpClient, HttpClientModule, HttpHeaders} from "@angular/common/http";
-import {Employee} from "../Employee";
+import {Observable, of} from 'rxjs';
+import {HttpClient, HttpClientModule, HttpHeaders} from '@angular/common/http';
+import {Employee} from '../Employee';
 
 @Component({
   selector: 'app-employee-list',
