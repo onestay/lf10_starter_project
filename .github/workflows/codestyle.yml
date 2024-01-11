@@ -9,7 +9,7 @@ on:
       - main  # Change this to your main branch name, if different
 
 jobs:
-  eslint:
+  codestyle:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,3 +26,6 @@ jobs:
 
       - name: Run ESLint
         run: npm run lint  # Change this to your ESLint command if it's different in your project
+
+      - name: Prettier
+        run: npm run check-format
