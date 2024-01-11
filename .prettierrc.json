@@ -1,5 +1,5 @@
 {
-  "options": {
-    "editorconfig": true
-  }
+  "editorconfig": true,
+  "semi": true,
+  "singleQuote": true
 }
