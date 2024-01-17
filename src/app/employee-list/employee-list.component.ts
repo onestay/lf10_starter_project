@@ -6,7 +6,7 @@ import {
   HttpClientModule,
   HttpHeaders,
 } from '@angular/common/http';
-import { Employee } from '../Employee';
+import { Employee } from '../model/Employee';
 
 @Component({
   selector: 'app-employee-list',
