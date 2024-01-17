@@ -12,29 +12,15 @@ import { FormsModule } from '@angular/forms';
 export class EmployeeDetailsComponent {
   isReadOnly: boolean = true;
   skillSet: string[] = ['skill1', 'skill2'];
-  addingSkill: boolean = false;
   firstname: string = '';
   lastname: string = '';
   street: string = '';
-  postcode: number | undefined;
+  postcode: string = '';
   city: string = '';
-  phone: number | undefined;
-  skillSetTemp: string = '';
-
+  phone: string = '';
+  
   addSkill(): void {
     console.log('Adding skill.');
-    this.addingSkill = true;
-  }
-
-  cancelAddingSkill(): void {
-    this.skillSetTemp = '';
-    this.addingSkill = false;
-  }
-
-  saveAddingSkill(): void {
-    this.skillSet.push(this.skillSetTemp);
-    this.skillSetTemp = '';
-    this.addingSkill = false;
   }
 
   cancel() : void {
