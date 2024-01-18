@@ -18,12 +18,12 @@ export class EmployeeDetailsComponent {
   postcode: string = '';
   city: string = '';
   phone: string = '';
-  
+
   addSkill(): void {
     console.log('Adding skill.');
   }
 
-  cancel() : void {
+  cancel(): void {
     console.log('cancelling');
   }
 
