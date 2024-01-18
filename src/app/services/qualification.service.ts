@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Qualification } from '../model/Qualification';
+import { Observable } from 'rxjs';
+import { Employee } from '../model/Employee';
 
 @Injectable({
   providedIn: 'root',
@@ -8,19 +10,33 @@ import { Qualification } from '../model/Qualification';
 export class QualificationService {
   url: string = 'http://localhost:8089/qualifications';
   token: string =
-    'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzUFQ0dldiNno5MnlQWk1EWnBqT1U0RjFVN0lwNi1ELUlqQWVGczJPbGU0In0.eyJleHAiOjE3MDU0ODgyNjAsImlhdCI6MTcwNTQ4NDY2MCwianRpIjoiMGZkYjE4OWEtMDc1MS00ODRiLWE5NmEtZjYxNTVlODhhYzMyIiwiaXNzIjoiaHR0cHM6Ly9rZXljbG9hay5zenV0LmRldi9hdXRoL3JlYWxtcy9zenV0IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjU1NDZjZDIxLTk4NTQtNDMyZi1hNDY3LTRkZTNlZWRmNTg4OSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImVtcGxveWVlLW1hbmFnZW1lbnQtc2VydmljZSIsInNlc3Npb25fc3RhdGUiOiIzNTAxMmM5ZC1hMWQyLTQzMzItYjIwYS0yODZkMDBiNTZlNzMiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbInByb2R1Y3Rfb3duZXIiLCJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtc3p1dCIsInVtYV9hdXRob3JpemF0aW9uIiwidXNlciJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJ1c2VyIn0.ehATKNniWD2Cwhc23DmmqMIpO6AjlJIjXjwsoTrL-elQiSpy1xD-wpcqMaWAi3XwtydergGwEgXLk-6XZhNS4RfBtLJvb0Ffpyur-nyB8OHZbAo6VLcxQjOUcEMt4k_MGHlNYYHuOU1n3bwqILkYOeUhu7AOVQVtQAhjrbBwZE-jOuacpWyjGLjHxUFwtGDx7IpEq9g-h3uJHRutSFRciAOU_4Q-aCLMEVNxSo83-6ErSqYgFWmCIIVo0BnGi79GDGgdDYqb-Lh0U-Pm6XlhDILZiSAS9XBtiMPvBx5zW3a7FogEZ7OmHiwAS4A2GnLT8taB7L8dg3J2BbOQ8C-OgA';
+    'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzUFQ0dldiNno5MnlQWk1EWnBqT1U0RjFVN0lwNi1ELUlqQWVGczJPbGU0In0.eyJleHAiOjE3MDU1NzI2NzksImlhdCI6MTcwNTU2OTA3OSwianRpIjoiMTA4ZDczNWItZjU5Zi00NmI1LWFjNWUtMjNmYjhmZDZmZmM2IiwiaXNzIjoiaHR0cHM6Ly9rZXljbG9hay5zenV0LmRldi9hdXRoL3JlYWxtcy9zenV0IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjU1NDZjZDIxLTk4NTQtNDMyZi1hNDY3LTRkZTNlZWRmNTg4OSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImVtcGxveWVlLW1hbmFnZW1lbnQtc2VydmljZSIsInNlc3Npb25fc3RhdGUiOiIxZDM4ZWMwNi01Zjc2LTRkZGYtOGZlMi02Mzk4NmY3Zjc3NWYiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsicHJvZHVjdF9vd25lciIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1zenV0IiwidW1hX2F1dGhvcml6YXRpb24iLCJ1c2VyIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInByZWZlcnJlZF91c2VybmFtZSI6InVzZXIifQ.eGNyNxwp3H69XETsmmylICKaQfWVH0Ifex0aes-2l6O-T41LCrL9-vrLDVv4_NYXkirbV7eT_crt2TzPyiBqd6jm8xdXU8pWjUOp6l7QUtnWXi7H5Szf-E6GHEsuXIXnufNSeLc5wme9UPZy86f_fkuS1ATO1oGrrq1ly_A5b82zvJU8trVwfChkk2vLGta6mkuPcPtzH5jMcGURVLVp3ZKolusnORicBib4q4MBlQ1xt-ZHRpbzIOvsVqmhWJy2niECB5xLEBiJz1mGw8j7JNeq9einiTaPezbjoiOZB3RAJGLbTlHFVpd6NX1B7YSzmYlmJJjxb9YJG0EhDFVMYQ';
   constructor(private httpClient: HttpClient) {}
 
   public getAllQualifications(): Qualification[] {
     const qualifications: Qualification[] = [];
+    this.getQualificationObservable(this.url).subscribe((q) => {
+      qualifications.push(q as Qualification);
+    });
+    return qualifications;
+  }
+
+  public getEmployeesByQualificationID(id: number): Employee[] {
+    let employees: Employee[] = [];
+    this.getQualificationObservable(
+      this.url + '/' + id + '/employees',
+    ).subscribe((e) => {
+      employees.push(e as Employee);
+    });
+    return employees;
+  }
+
+  private getQualificationObservable(url: string): Observable<unknown> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${this.token}`,
     });
 
-    this.httpClient.get(this.url, { headers }).subscribe((q) => {
-      qualifications.push(q as Qualification);
-    });
-    return qualifications;
+    return this.httpClient.get(url, { headers });
   }
 }
