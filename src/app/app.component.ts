@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { UserService } from './user.service';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import {NgbNav, NgbNavItem, NgbNavLink } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, EmployeeListComponent],
+  imports: [CommonModule, RouterLink, RouterOutlet, NgbNav, NgbNavItem, NgbNavLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

@@ -22,7 +22,6 @@ export class UserService {
       .pipe(filter((e) => e.type === 'token_received'))
       .subscribe(() => {
         this.oauthService.loadUserProfile();
-        console.log(this.oauthService.getAccessToken());
       });
   }
 }
