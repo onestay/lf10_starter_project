@@ -11,25 +11,13 @@ export class QualificationService {
   url: string = '/backend/qualifications';
   constructor(private httpClient: HttpClient) {}
 
-  public getAllQualifications(): Qualification[] {
-    const qualifications: Qualification[] = [];
-    this.getQualificationObservable(this.url).subscribe((q) => {
-      q.forEach((w) => {
-        qualifications.push(w);
-      });
-    });
-    return qualifications;
+  public getAllQualifications(): Observable<Qualification[]> {
+    return this.getQualificationObservable(this.url);
   }
 
-  public getEmployeesByQualificationID(id: number): Employee[] {
+  public getEmployeesByQualificationID(id: number): Observable<Employee[]> {
     // eslint-disable-next-line prefer-const
-    let employees: Employee[] = [];
-    this.getQualificationObservable(
-      this.url + '/' + id + '/employees',
-    ).subscribe((e) => {
-      employees.push(e as Employee);
-    });
-    return employees;
+    return this.getQualificationObservable(this.url + '/' + id + '/employees');
   }
 
   public updateQualification(targetId: number, skillUpdate: string) {
