@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './employee-details.component.css',
 })
 export class EmployeeDetailsComponent {
-  isReadOnly: boolean = true;
+  isReadOnly: boolean = false;
   skillSet: string[] = ['skill1', 'skill2'];
   firstname: string = '';
   lastname: string = '';
