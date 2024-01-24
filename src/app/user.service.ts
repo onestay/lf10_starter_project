@@ -11,7 +11,12 @@ export class UserService {
     this.oauthService.configure(authCodeFlowConfig);
   }
 
-  getAccessToken() {
+  async getAccessToken() {
+    if (Date.now() >= this.oauthService.getAccessTokenExpiration()) {
+      console.log('refreshing token');
+      const tokenResponse = await this.oauthService.refreshToken();
+      return tokenResponse.access_token;
+    }
     return this.oauthService.getAccessToken();
   }
 
