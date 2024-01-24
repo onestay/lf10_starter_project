@@ -1,1 +1,62 @@
-<p>employee-details works!</p>
+<p>Employee Details</p>
+<table>
+  <th>
+    <p>Firstname</p>
+  </th>
+  <th>
+    <p>Lastname</p>
+  </th>
+  <tbody>
+    <input type="text" [(ngModel)]="firstname" [readOnly]="isReadOnly" />
+    <input type="text" [(ngModel)]="lastname" [readOnly]="isReadOnly" />
+  </tbody>
+</table>
+<table>
+  <th>
+    <p>Street</p>
+  </th>
+  <th>
+    <p>Postcode</p>
+  </th>
+  <th>
+    <p>City</p>
+  </th>
+  <th>
+    <p>Phone Number</p>
+  </th>
+  <tbody>
+    <input type="text" [(ngModel)]="street" [readOnly]="isReadOnly" />
+    <input type="text" [(ngModel)]="postcode" [readOnly]="isReadOnly" />
+    <input type="text" [(ngModel)]="city" [readOnly]="isReadOnly" />
+    <input type="text" [(ngModel)]="phone" [readOnly]="isReadOnly" />
+  </tbody>
+</table>
+<table>
+  <th>
+    <p>Skillset</p>
+  </th>
+  <tbody>
+    <div *ngFor="let skill of skillSet">
+      <p>{{ skill }}</p>
+    </div>
+    <button *ngIf="!isReadOnly" (click)="addSkill()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#000000"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="16"></line>
+        <line x1="8" y1="12" x2="16" y2="12"></line>
+      </svg>
+    </button>
+  </tbody>
+</table>
+<button *ngIf="!isReadOnly" (click)="cancel()">Cancel</button>
+<button *ngIf="!isReadOnly" (click)="save()">Save</button>
