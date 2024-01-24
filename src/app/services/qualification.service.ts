@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Qualification } from '../model/Qualification';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { Employee } from '../model/Employee';
 
 @Injectable({
@@ -40,28 +40,21 @@ export class QualificationService {
       'Content-Type': 'application/json',
     });
     const body = { skill: skillUpdate };
-    this.httpClient.post(this.url, body, { headers }).subscribe(
-      (response) => {
-        console.log('Post request successful:', response);
-      },
-      (error) => {
-        console.error('Post request failed:', error);
-      },
-    );
+    return this.httpClient.post(this.url, body, { headers });
   }
 
-  public deleteQualification(targetId: number) {
+  public deleteQualification(targetId: number): Observable<boolean> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    this.httpClient.delete(this.url + '/' + targetId, { headers }).subscribe(
-      (response) => {
-        console.log('Delete request successful:', response);
-      },
-      (error) => {
-        console.error('Delete request failed:', error);
-      },
-    );
+    return this.httpClient
+      .delete(this.url + '/' + targetId, { headers, observe: 'response' })
+      .pipe(
+        map((res) => {
+          return res.status === 204;
+        }),
+        catchError(() => of(false)),
+      );
   }
 
   private getQualificationObservable(url: string): Observable<Qualification[]> {
