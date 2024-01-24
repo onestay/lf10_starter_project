@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Employee } from './model/Employee';
-import { Observable, catchError, map, of } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of } from 'rxjs';
 import { EmployeeQualification } from './model/EmployeeQualification';
 import { UpdateEmployee } from './model/UpdateEmployee';
 import { CreateEmployee } from './model/CreateEmployee';
@@ -10,7 +10,16 @@ import { CreateEmployee } from './model/CreateEmployee';
   providedIn: 'root',
 })
 export class EmployeeService {
+  private employeeFilterSubject: BehaviorSubject<string> =
+    new BehaviorSubject<string>('');
+  public employeeFilter$: Observable<string> =
+    this.employeeFilterSubject.asObservable();
   constructor(private http: HttpClient) {}
+
+  setEmployeeFilter(filter: string) {
+    this.employeeFilterSubject.next(filter.trim());
+  }
+
   getAllEmployees(): Observable<Employee[]> {
     return this.http.get<Employee[]>('/backend/employees');
   }

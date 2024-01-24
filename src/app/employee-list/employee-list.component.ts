@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, map, of } from 'rxjs';
 import { Employee } from '../model/Employee';
-import { UserService } from '../user.service';
+import { EmployeeService } from '../employee.service';
+import Fuse from 'fuse.js';
 
 @Component({
   selector: 'app-employee-list',
@@ -12,21 +12,25 @@ import { UserService } from '../user.service';
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css',
 })
-export class EmployeeListComponent {
-  employees$: Observable<Employee[]>;
+export class EmployeeListComponent implements OnInit {
+  allEmployees: Observable<Employee[]> = of([]);
+  employees: Observable<Employee[]> = of([]);
+  constructor(private employeeService: EmployeeService) {}
+  ngOnInit(): void {
+    this.allEmployees = this.employeeService.getAllEmployees();
+    this.employeeService.employeeFilter$.subscribe((filter) => {
+      this.employees = this.allEmployees.pipe(
+        map((employees) => {
+          if (!filter) {
+            return employees;
+          }
+          const fuse = new Fuse(employees, {
+            keys: ['firstName', 'lastName'],
+          });
 
-  constructor(
-    private http: HttpClient,
-    private userService: UserService,
-  ) {
-    console.log(this.userService.getAccessToken());
-    this.employees$ = of([]);
-    this.fetchData();
-  }
-
-  fetchData() {
-    this.employees$ = this.http.get<Employee[]>('/backend', {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+          return fuse.search(filter).map((result) => result.item);
+        }),
+      );
     });
   }
 }
