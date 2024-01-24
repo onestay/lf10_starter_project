@@ -18,26 +18,37 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="firstname">First Name</label>
-            <input
+            <div *ngIf="isReadOnly">
+              <p class="mb-2">{{ firstname }}</p>
+            </div>
+            <div *ngIf="!isReadOnly">
+              <input
               type="text"
               class="form-control"
               id="firstname"
               [(ngModel)]="firstname"
               [readOnly]="isReadOnly"
             />
+            </div>
+
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="form-group">
             <label for="lastname">Last Name</label>
-            <input
+            <div *ngIf="isReadOnly">
+              <p class="mb-2">{{ lastname }}</p>
+            </div>
+            <div *ngIf="!isReadOnly">
+              <input
               type="text"
               class="form-control"
               id="lastname"
               [(ngModel)]="lastname"
               [readOnly]="isReadOnly"
             />
+            </div>
           </div>
         </div>
       </div>
@@ -47,52 +58,72 @@
         <div class="col-md-3">
           <div class="form-group">
             <label for="street">Street</label>
-            <input
+            <div *ngIf="isReadOnly">
+              <p class="mb-2">{{ street }}</p>
+            </div>
+            <div *ngIf="!isReadOnly">
+              <input
               type="text"
               class="form-control"
               id="street"
               [(ngModel)]="street"
               [readOnly]="isReadOnly"
             />
+            </div>
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label for="postcode">Postcode</label>
-            <input
+            <div *ngIf="isReadOnly">
+              <p class="mb-2">{{ postcode }}</p>
+            </div>
+            <div *ngIf="!isReadOnly">
+              <input
               type="text"
               class="form-control"
               id="postcode"
               [(ngModel)]="postcode"
               [readOnly]="isReadOnly"
-            />
+             />
+            </div>
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label for="city">City</label>
-            <input
+            <div *ngIf="isReadOnly">
+              <p class="mb-2">{{ city }}</p>
+            </div>
+            <div *ngIf="!isReadOnly">
+              <input
               type="text"
               class="form-control"
               id="city"
               [(ngModel)]="city"
               [readOnly]="isReadOnly"
-            />
+             />
+            </div>
           </div>
         </div>
 
         <div class="col-md-3">
           <div class="form-group">
             <label for="phone">Phone Number</label>
-            <input
+            <div *ngIf="isReadOnly">
+              <p class="mb-2">{{ phone }}</p>
+            </div>
+            <div *ngIf="!isReadOnly">
+              <input
               type="text"
               class="form-control"
               id="phone"
               [(ngModel)]="phone"
               [readOnly]="isReadOnly"
-            />
+             />
+            </div>
           </div>
         </div>
       </div>
