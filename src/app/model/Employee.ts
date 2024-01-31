@@ -1,3 +1,5 @@
+import { Qualification } from './Qualification';
+
 export class Employee {
   constructor(
     public id?: number,
@@ -7,5 +9,6 @@ export class Employee {
     public postcode?: string,
     public city?: string,
     public phone?: string,
+    public skillSet?: Qualification[]
   ) {}
 }
