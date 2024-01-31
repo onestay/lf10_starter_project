@@ -5,4 +5,5 @@ export interface UpdateEmployee {
   postcode?: string;
   city?: string;
   phone?: string;
+  skillSet?: number[];
 }
