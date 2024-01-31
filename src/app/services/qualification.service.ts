@@ -12,7 +12,14 @@ export class QualificationService {
   constructor(private httpClient: HttpClient) {}
 
   public getAllQualifications(): Observable<Qualification[]> {
-    return this.getQualificationObservable(this.url);
+    const obsArray: Observable<Qualification[]> =
+      this.getQualificationObservable(this.url);
+    return obsArray.pipe(
+      map((qualifications: Qualification[]) => {
+        // Sorting the array based on the 'id' property
+        return qualifications.sort((a, b) => a.id - b.id);
+      }),
+    );
   }
 
   public getEmployeesByQualificationID(id: number): Observable<Employee[]> {
@@ -20,19 +27,22 @@ export class QualificationService {
     return this.getQualificationObservable(this.url + '/' + id + '/employees');
   }
 
-  public updateQualification(targetId: number, skillUpdate: string) {
+  public updateQualification(
+    targetId: number,
+    skillUpdate: string,
+  ): Observable<boolean> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
     const body = { skill: skillUpdate };
-    this.httpClient.put(this.url + '/' + targetId, body, { headers }).subscribe(
-      (response) => {
-        console.log('PUT request successful:', response);
-      },
-      (error) => {
-        console.error('PUT request failed:', error);
-      },
-    );
+    return this.httpClient
+      .put(this.url + '/' + targetId, body, { headers, observe: 'response' })
+      .pipe(
+        map((res) => {
+          return res.status === 200;
+        }),
+        catchError(() => of(false)),
+      );
   }
 
   public createNewQualification(skillUpdate: string) {
