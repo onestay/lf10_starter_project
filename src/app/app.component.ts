@@ -6,6 +6,7 @@ import { NgbNav, NgbNavItem, NgbNavLink } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './componenets/navbar/navbar.component';
 import { FilterComponent } from './componenets/filter/filter.component';
 import { AddQualificationComponent } from './add-qualification/add-qualification.component';
+import { EmployeeListComponent } from './employee-list/employee-list.component';
 
 @Component({
   selector: 'app-root',
@@ -19,10 +20,12 @@ import { AddQualificationComponent } from './add-qualification/add-qualification
     NgbNavLink,
     NavbarComponent,
     FilterComponent,
+    AddQualificationComponent,
+    EmployeeListComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [CommonModule, EmployeeListComponent, AddQualificationComponent]
+
 })
 export class AppComponent {
   selectedTab: string = 'employees';
@@ -38,4 +41,9 @@ export class AppComponent {
     return window.location.pathname === '/' ? 'Employee' : 'Qualification';
   }
   title = 'lf10StarterNew';
+
+  openPopUp():void{
+
+  }
 }
+
