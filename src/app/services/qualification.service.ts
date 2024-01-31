@@ -1,15 +1,22 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Qualification } from '../model/Qualification';
-import { Observable, catchError, map, of } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of } from 'rxjs';
 import { Employee } from '../model/Employee';
 
 @Injectable({
   providedIn: 'root',
 })
 export class QualificationService {
+  qualificationFilter: BehaviorSubject<string> = new BehaviorSubject<string>(
+    '',
+  );
   url: string = '/backend/qualifications';
   constructor(private httpClient: HttpClient) {}
+
+  public setQualificationFilter(filter: string) {
+    this.qualificationFilter.next(filter.trim());
+  }
 
   public getAllQualifications(): Observable<Qualification[]> {
     const obsArray: Observable<Qualification[]> =

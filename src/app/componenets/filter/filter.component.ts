@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EmployeeService } from '../../employee.service';
+import { QualificationService } from '../../services/qualification.service';
 
 @Component({
   selector: 'app-filter',
@@ -10,12 +11,21 @@ import { EmployeeService } from '../../employee.service';
   styleUrl: './filter.component.css',
 })
 export class FilterComponent {
-  constructor(private employeeService: EmployeeService) {}
+  @Input() currentComponent: string = '';
+  constructor(
+    private employeeService: EmployeeService,
+    private qualificationService: QualificationService,
+  ) {}
   filterText: string = '';
   onFilterType(event: Event) {
-    console.log('called');
-    this.employeeService.setEmployeeFilter(
-      (event.target as HTMLInputElement).value,
-    );
+    if (this.currentComponent === 'Employee') {
+      this.employeeService.setEmployeeFilter(
+        (event.target as HTMLInputElement).value,
+      );
+    } else if (this.currentComponent === 'Qualification') {
+      this.qualificationService.setQualificationFilter(
+        (event.target as HTMLInputElement).value,
+      );
+    }
   }
 }

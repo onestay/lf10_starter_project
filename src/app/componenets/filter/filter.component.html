@@ -18,7 +18,9 @@
     <input
       type="text"
       class="form-control"
-      placeholder="Max Mustermann"
+      [placeholder]="
+        currentComponent === 'Employee' ? 'Max Mustermann' : 'Angular'
+      "
       aria-label="Filter"
       [(ngModel)]="filterText"
       (input)="onFilterType($event)"
