@@ -5,12 +5,14 @@
     </button>
   </div>
   <div>
-    <app-filter></app-filter>
+    <app-filter [currentComponent]="getButtonTitle()"></app-filter>
   </div>
   <div>
-    <app-navbar></app-navbar>
+    <app-navbar (logout)="logout()"></app-navbar>
   </div>
   <div>
-    <router-outlet></router-outlet>
+    <div *ngIf="loggedIn">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

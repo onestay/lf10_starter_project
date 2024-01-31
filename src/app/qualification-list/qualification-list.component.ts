@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QualificationService } from '../services/qualification.service';
 import { Qualification } from '../model/Qualification';
-import { Observable, of } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import Fuse from 'fuse.js';
 
 @Component({
   selector: 'app-qualification-list',
@@ -13,13 +14,29 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './qualification-list.component.css',
 })
 export class QualificationListComponent implements OnInit {
+  allQualifications: Observable<Qualification[]> = of([]);
   qualifications: Observable<Qualification[]> = of([]);
   editQualification: Qualification | undefined;
 
   constructor(private qualificationService: QualificationService) {}
 
   ngOnInit() {
-    this.qualifications = this.qualificationService.getAllQualifications();
+    this.allQualifications = this.qualificationService.getAllQualifications();
+    this.qualificationService.qualificationFilter.subscribe((filter) => {
+      this.qualifications = this.allQualifications.pipe(
+        map((qualifications) => {
+          if (!filter) {
+            return qualifications;
+          }
+
+          const fuse = new Fuse(qualifications, {
+            keys: ['skill'],
+          });
+
+          return fuse.search(filter).map((result) => result.item);
+        }),
+      );
+    });
   }
 
   toEdit(qualification: Qualification): boolean {

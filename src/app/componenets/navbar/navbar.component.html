@@ -7,7 +7,12 @@
       <a ngbNavLink routerLink="/qualifications">Qualifications</a>
     </li>
   </ul>
-  <button type="button" class="btn btn-primary" style="margin-top: auto">
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="logoutClicked()"
+    style="margin-top: auto"
+  >
     Logout
   </button>
 </div>
