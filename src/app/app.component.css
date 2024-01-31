@@ -7,11 +7,18 @@
   padding: 15px;
 }
 
-
 .add-button {
   width: 100%;
 }
 
 .nav-logout {
   margin-top: auto;
+}
+
+#list {
+  background-color: #9c8181;
+}
+
+.btn-primary {
+  background-color: #610a0a;
 }

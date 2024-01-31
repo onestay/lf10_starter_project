@@ -1,29 +1,33 @@
-<table *ngIf="!showingDetails && !showingEdit">
+<table
+  class="table table-striped table-hover"
+  *ngIf="!showingDetails && !showingEdit"
+>
   <thead>
-    <th>Lastname</th>
-    <th>Firstname</th>
-    <th>Qualifications</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <tr>
+      <th colspan="1">Lastname</th>
+      <th colspan="1">Firstname</th>
+      <th colspan="4">Qualifications</th>
+    </tr>
   </thead>
-  <tbody *ngFor="let e of employees | async">
-    <td>{{ e.lastName }}</td>
-    <td>{{ e.firstName }}</td>
-    <td>
-      {{ qualificationsString(e) | ellipsis: 20 }}
-    </td>
-    <td>
-      <button (click)="showDetails(e)" class="btn btn-info btn-sm">
-        Details
-      </button>
-    </td>
-    <td>
-      <button (click)="showEdit(e)" class="btn btn-primary btn-sm">Edit</button>
-    </td>
-    <td>
-      <button (click)="delete(e)" class="btn btn-danger btn-sm">Delete</button>
-    </td>
+  <tbody>
+    <ng-container *ngFor="let e of employees | async">
+      <tr>
+        <td>{{ e.lastName }}</td>
+        <td>{{ e.firstName }}</td>
+        <td>
+          {{ qualificationsString(e) | ellipsis: 20 }}
+        </td>
+        <td>
+          <button (click)="showDetails(e)">Details</button>
+        </td>
+        <td>
+          <button (click)="showEdit(e)">Edit</button>
+        </td>
+        <td>
+          <button (click)="delete(e)">Delete</button>
+        </td>
+      </tr>
+    </ng-container>
   </tbody>
 </table>
 <!-- <app-employee-details> -->
