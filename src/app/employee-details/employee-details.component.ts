@@ -22,7 +22,7 @@ export class EmployeeDetailsComponent {
 
   constructor(private employeeService: EmployeeService) {
     this.employeeService.currentEmployee.subscribe((e) => {
-      this.skillSet = e?.skillSet?.map(skill => skill.skill);
+      this.skillSet = e?.skillSet?.map((skill) => skill.skill);
       this.firstname = e?.firstName;
       this.lastname = e?.lastName;
       this.street = e?.street;

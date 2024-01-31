@@ -5,16 +5,18 @@
     <th>Details</th>
   </thead>
   <tbody *ngFor="let e of employees | async">
-    <td>{{e.lastName}}</td>
-    <td>{{e.firstName}}</td>
+    <td>{{ e.lastName }}</td>
+    <td>{{ e.firstName }}</td>
     <td>
       <span *ngFor="let skill of e.skillSet">
-        <p>{{skill.skill}}</p>
+        <p>{{ skill.skill }}</p>
       </span>
-    </td>>
+    </td>
+    >
     <td>
       <button (click)="showDetails(e)">Details</button>
     </td>
+  </tbody>
 </table>
 <!-- <app-employee-details> -->
 <div *ngIf="showingDetails">

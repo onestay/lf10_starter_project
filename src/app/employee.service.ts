@@ -14,7 +14,8 @@ export class EmployeeService {
     new BehaviorSubject<string>('');
   public employeeFilter$: Observable<string> =
     this.employeeFilterSubject.asObservable();
-  public currentEmployee: BehaviorSubject<Employee | null> = new BehaviorSubject<Employee | null>(null);
+  public currentEmployee: BehaviorSubject<Employee | null> =
+    new BehaviorSubject<Employee | null>(null);
   constructor(private http: HttpClient) {}
 
   setEmployeeFilter(filter: string) {
