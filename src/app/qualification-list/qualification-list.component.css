@@ -1,0 +1,20 @@
+* {
+  color: white;
+}
+
+td {
+  background-color: #828282;
+}
+
+button {
+  background-color: #610a0a;
+}
+
+th {
+  background-color: #828282;
+  color: white;
+}
+
+input {
+  color: black;
+}
