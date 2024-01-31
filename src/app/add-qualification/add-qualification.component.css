@@ -1,0 +1,18 @@
+.add-qualification-template {
+  display: block;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 60px;
+}
+
+button {
+  background-color: #610a0a;
+  color: white;
+}
+
+.component-container {
+  padding: 20px;
+}

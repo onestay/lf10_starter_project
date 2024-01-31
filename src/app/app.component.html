@@ -14,7 +14,7 @@
   <div>
     <app-navbar (logout)="logout()"></app-navbar>
   </div>
-  <div>
+  <div id="list">
     <div *ngIf="loggedIn">
       <div *ngIf="addEmployee">
         <app-employee-details

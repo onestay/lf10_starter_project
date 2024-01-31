@@ -8,6 +8,7 @@ td {
 
 button {
   background-color: #610a0a;
+  border: none;
 }
 
 th {
@@ -17,4 +18,8 @@ th {
 
 input {
   color: black;
+}
+
+.tableSkill {
+  width: 80%;
 }

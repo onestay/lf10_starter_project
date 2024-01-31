@@ -1,10 +1,12 @@
 <div class="d-flex flex-column nav-root" style="height: 100%">
   <ul ngbNav #nav="ngbNav" class="nav-pills" orientation="vertical">
     <li ngbNavItem="qualifications">
-      <a ngbNavLink routerLink="/">Employees</a>
+      <a ngbNavLink routerLink="/" class="custom-link-style">Employees</a>
     </li>
     <li ngbNavItem="employees">
-      <a ngbNavLink routerLink="/qualifications">Qualifications</a>
+      <a ngbNavLink routerLink="/qualifications" class="custom-link-style"
+        >Qualifications</a
+      >
     </li>
   </ul>
   <button

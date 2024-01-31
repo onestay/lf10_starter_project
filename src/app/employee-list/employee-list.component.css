@@ -1,0 +1,22 @@
+* {
+  color: white;
+}
+
+td {
+  background-color: #828282;
+  color: white;
+}
+
+button {
+  background-color: #610a0a;
+  border: none;
+}
+
+th {
+  background-color: #828282;
+  color: white;
+}
+
+input {
+  color: black;
+}

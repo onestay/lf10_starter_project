@@ -80,7 +80,7 @@ export class QualificationListComponent implements OnInit {
   }
 
   onDelete(qualification: Qualification) {
-    console.log('Qualification with the id: ' + qualification.id + ' deleted');
-    // this.qualificationService.deleteQualification(qualification.id);
+    this.qualificationService.deleteQualification(qualification.id).subscribe();
+    this.refreshQualifications();
   }
 }

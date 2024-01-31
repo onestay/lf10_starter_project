@@ -1,13 +1,13 @@
 <table class="table table-striped table-hover">
   <thead>
     <tr>
-      <th>Qualification</th>
+      <th colspan="5">Qualification</th>
     </tr>
   </thead>
   <tbody>
     <ng-container *ngFor="let qualification of qualifications | async">
       <tr>
-        <td>
+        <td class="tableSkill">
           <span *ngIf="!toEdit(qualification)">{{ qualification.skill }}</span>
           <input
             *ngIf="toEdit(qualification)"
