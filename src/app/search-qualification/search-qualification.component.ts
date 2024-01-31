@@ -9,5 +9,5 @@ import { CommonModule } from '@angular/common';
   styleUrl: './search-qualification.component.css',
 })
 export class SearchQualificationComponent {
-  searchFor
+  searchFor;
 }

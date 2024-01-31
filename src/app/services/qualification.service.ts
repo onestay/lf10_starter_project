@@ -11,6 +11,7 @@ export class QualificationService {
   qualificationFilter: BehaviorSubject<string> = new BehaviorSubject<string>(
     '',
   );
+  refresh: BehaviorSubject<string> = new BehaviorSubject('');
   url: string = '/backend/qualifications';
   constructor(private httpClient: HttpClient) {}
 

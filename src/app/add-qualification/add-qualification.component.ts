@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QualificationService } from '../services/qualification.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -12,14 +12,19 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './add-qualification.component.css',
 })
 export class AddQualificationComponent {
-  ;
-  qulificaionName:string ='';
-  constructor(private qualificationService: QualificationService,protected activeModal :NgbActiveModal){
-  }
+  qulificaionName: string = '';
+  constructor(
+    private qualificationService: QualificationService,
+    protected activeModal: NgbActiveModal,
+  ) {}
 
-  addQualification(): void{
-    if(this.qulificaionName != '')
-      this.qualificationService.createNewQualification(this.qulificaionName).subscribe();
+  addQualification(): void {
+    if (this.qulificaionName != '')
+      this.qualificationService
+        .createNewQualification(this.qulificaionName)
+        .subscribe(() => {
+          this.activeModal.close();
+          this.qualificationService.refresh.next('');
+        });
   }
-
 }
