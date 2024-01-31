@@ -1,1 +1,185 @@
-<p>employee-details works!</p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <title>Employee Details</title>
+  </head>
+  <body>
+    <div class="container mt-4">
+      <h2 class="mb-4">Employee Details</h2>
+
+      <!-- Personal Information -->
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="firstname">First Name</label>
+            <div *ngIf="isReadOnly">
+              <p class="mb-2">{{ firstname }}</p>
+            </div>
+            <div *ngIf="!isReadOnly">
+              <input
+                type="text"
+                class="form-control"
+                id="firstname"
+                [(ngModel)]="firstname"
+                [readOnly]="isReadOnly"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <div *ngIf="isReadOnly">
+              <p class="mb-2">{{ lastname }}</p>
+            </div>
+            <div *ngIf="!isReadOnly">
+              <input
+                type="text"
+                class="form-control"
+                id="lastname"
+                [(ngModel)]="lastname"
+                [readOnly]="isReadOnly"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Address Information -->
+      <div class="row mt-4">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="street">Street</label>
+            <div *ngIf="isReadOnly">
+              <p class="mb-2">{{ street }}</p>
+            </div>
+            <div *ngIf="!isReadOnly">
+              <input
+                type="text"
+                class="form-control"
+                id="street"
+                [(ngModel)]="street"
+                [readOnly]="isReadOnly"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="postcode">Postcode</label>
+            <div *ngIf="isReadOnly">
+              <p class="mb-2">{{ postcode }}</p>
+            </div>
+            <div *ngIf="!isReadOnly">
+              <input
+                type="text"
+                class="form-control"
+                id="postcode"
+                [(ngModel)]="postcode"
+                [readOnly]="isReadOnly"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="city">City</label>
+            <div *ngIf="isReadOnly">
+              <p class="mb-2">{{ city }}</p>
+            </div>
+            <div *ngIf="!isReadOnly">
+              <input
+                type="text"
+                class="form-control"
+                id="city"
+                [(ngModel)]="city"
+                [readOnly]="isReadOnly"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <div *ngIf="isReadOnly">
+              <p class="mb-2">{{ phone }}</p>
+            </div>
+            <div *ngIf="!isReadOnly">
+              <input
+                type="text"
+                class="form-control"
+                id="phone"
+                [(ngModel)]="phone"
+                [readOnly]="isReadOnly"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skillset Information -->
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <h4>Skillset</h4>
+          <div class="form-group">
+            <div *ngFor="let skill of skillSet">
+              <p class="mb-2">{{ skill }}</p>
+            </div>
+            <button
+              *ngIf="!isReadOnly"
+              class="btn btn-primary"
+              (click)="addSkill()"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="16"></line>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <button
+            *ngIf="!isReadOnly"
+            class="btn btn-secondary mr-2"
+            (click)="cancel()"
+          >
+            Cancel
+          </button>
+          <button *ngIf="!isReadOnly" class="btn btn-primary" (click)="save()">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>

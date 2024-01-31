@@ -1,0 +1,17 @@
+.root-grid {
+  display: grid;
+  grid-template-columns: 15% 1fr;
+  grid-template-rows: 5% 1fr;
+  height: 100vh;
+  gap: 20px;
+  padding: 15px;
+}
+
+
+.add-button {
+  width: 100%;
+}
+
+.nav-logout {
+  margin-top: auto;
+}

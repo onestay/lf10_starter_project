@@ -1,0 +1,13 @@
+<div class="d-flex flex-column nav-root" style="height: 100%">
+  <ul ngbNav #nav="ngbNav" class="nav-pills" orientation="vertical">
+    <li ngbNavItem="qualifications">
+      <a ngbNavLink routerLink="/">Employees</a>
+    </li>
+    <li ngbNavItem="employees">
+      <a ngbNavLink routerLink="/qualifications">Qualifications</a>
+    </li>
+  </ul>
+  <button type="button" class="btn btn-primary" style="margin-top: auto">
+    Logout
+  </button>
+</div>
