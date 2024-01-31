@@ -21,22 +21,33 @@ export class QualificationListComponent implements OnInit {
   constructor(private qualificationService: QualificationService) {}
 
   ngOnInit() {
+    this.refreshQualifications();
+    this.qualificationService.refresh.subscribe(() => {
+      console.log('refresh');
+      this.refreshQualifications();
+    });
+  }
+
+  refreshQualifications() {
     this.allQualifications = this.qualificationService.getAllQualifications();
     this.qualificationService.qualificationFilter.subscribe((filter) => {
       this.qualifications = this.allQualifications.pipe(
         map((qualifications) => {
-          if (!filter) {
-            return qualifications;
-          }
-
-          const fuse = new Fuse(qualifications, {
-            keys: ['skill'],
-          });
-
-          return fuse.search(filter).map((result) => result.item);
+          return this.updateFilter(filter, qualifications);
         }),
       );
     });
+  }
+  updateFilter(filter: string, q: Qualification[]) {
+    if (!filter) {
+      return q;
+    }
+
+    const fuse = new Fuse(q, {
+      keys: ['skill'],
+    });
+
+    return fuse.search(filter).map((result) => result.item);
   }
 
   toEdit(qualification: Qualification): boolean {
