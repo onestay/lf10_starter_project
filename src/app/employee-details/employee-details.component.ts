@@ -54,9 +54,12 @@ export class EmployeeDetailsComponent {
     const modalRef = this.modalService.open(SearchQualificationComponent, {
       backdrop: false,
     });
-    from(modalRef.result).subscribe((qualification) => {
-      this.skillSet.push(qualification);
-    });
+    from(modalRef.result).subscribe(
+      (qualification) => {
+        this.skillSet.push(qualification);
+      },
+      () => {},
+    );
 
     console.log('Adding skill.');
   }

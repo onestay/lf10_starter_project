@@ -3,7 +3,7 @@
   <table class="table table-striped table-hover">
     <tbody>
       <ng-container *ngFor="let qualification of qualifications | async">
-        <tr (click)="selectQualification(qualification)">
+        <tr (click)="selectQualification(qualification)" style="cursor: pointer;">
           <td>
             <span>{{ qualification.skill }}</span>
           </td>
@@ -11,4 +11,5 @@
       </ng-container>
     </tbody>
   </table>
+  <button class="btn btn-primary" (click)="dismiss()">Close</button>
 </div>

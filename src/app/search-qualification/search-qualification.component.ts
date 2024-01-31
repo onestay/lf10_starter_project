@@ -47,4 +47,8 @@ export class SearchQualificationComponent implements OnInit {
   selectQualification(qualification: Qualification) {
     this.activeModal.close(qualification);
   }
+
+  dismiss() {
+    this.activeModal.dismiss();
+  }
 }
