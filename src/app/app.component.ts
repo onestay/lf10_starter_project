@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { QualificationListComponent } from './qualification-list/qualification-list.component';
 import { UserService } from './user.service';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { NgbNav, NgbNavItem, NgbNavLink } from '@ng-bootstrap/ng-bootstrap';
@@ -18,6 +19,7 @@ import { FilterComponent } from './componenets/filter/filter.component';
     NgbNavLink,
     NavbarComponent,
     FilterComponent,
+    QualificationListComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
