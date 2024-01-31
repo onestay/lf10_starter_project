@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QualificationListComponent } from './qualification-list/qualification-list.component';
 import { UserService } from './user.service';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
-import { NgbNav, NgbNavItem, NgbNavLink } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbNav, NgbNavItem, NgbNavLink } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './componenets/navbar/navbar.component';
 import { FilterComponent } from './componenets/filter/filter.component';
+import { AddQualificationComponent } from './add-qualification/add-qualification.component';
 
 @Component({
   selector: 'app-root',
@@ -25,12 +26,19 @@ import { FilterComponent } from './componenets/filter/filter.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
+
   selectedTab: string = 'employees';
   constructor(
+    private modalService : NgbModal,
     private userService: UserService,
     private route: ActivatedRoute,
   ) {
     this.userService.login();
+  }
+  openPopUp():void{
+    if(this.getButtonTitle() == 'Qualification'){
+      this.modalService.open(AddQualificationComponent);
+    }
   }
 
   getButtonTitle() {
