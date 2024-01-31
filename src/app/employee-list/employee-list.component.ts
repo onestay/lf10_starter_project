@@ -5,11 +5,12 @@ import { Employee } from '../model/Employee';
 import { EmployeeService } from '../employee.service';
 import { EmployeeDetailsComponent } from '../employee-details/employee-details.component';
 import Fuse from 'fuse.js';
+import { EllipsisPipe } from '../pipes/ellipsis.pipe';
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
-  imports: [CommonModule, EmployeeDetailsComponent],
+  imports: [CommonModule, EmployeeDetailsComponent, EllipsisPipe],
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css',
 })
@@ -17,6 +18,8 @@ export class EmployeeListComponent implements OnInit {
   allEmployees: Observable<Employee[]> = of([]);
   employees: Observable<Employee[]> = of([]);
   showingDetails: boolean = false;
+  showingEdit: boolean = false;
+  showingDelete: boolean = false;
   constructor(private employeeService: EmployeeService) {}
   ngOnInit(): void {
     this.allEmployees = this.employeeService.getAllEmployees();
@@ -44,5 +47,29 @@ export class EmployeeListComponent implements OnInit {
 
   hideDetails() {
     this.showingDetails = false;
+    this.showingDelete = false;
+  }
+
+  showEdit(e: Employee) {
+    this.employeeService.updateEmployeeDetails(e);
+    this.showingEdit = true;
+    console.log('edit');
+  }
+
+  hideEdit() {
+    this.showingEdit = false;
+    this.showingDetails = false;
+    this.showingDelete = false;
+  }
+
+  delete(e: Employee) {
+    this.employeeService.updateEmployeeDetails(e);
+    this.showingDelete = true;
+    this.showingDetails = true;
+    console.log('delete');
+  }
+
+  qualificationsString(e: Employee) {
+    return e.skillSet!.map((s) => s.skill).join(', ');
   }
 }

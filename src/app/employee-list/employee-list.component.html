@@ -1,25 +1,41 @@
-<table *ngIf="!showingDetails">
+<table *ngIf="!showingDetails && !showingEdit">
   <thead>
     <th>Lastname</th>
     <th>Firstname</th>
-    <th>Details</th>
+    <th>Qualifications</th>
+    <th></th>
+    <th></th>
+    <th></th>
   </thead>
   <tbody *ngFor="let e of employees | async">
     <td>{{ e.lastName }}</td>
     <td>{{ e.firstName }}</td>
     <td>
-      <span *ngFor="let skill of e.skillSet">
-        <p>{{ skill.skill }}</p>
-      </span>
+      {{ qualificationsString(e) | ellipsis: 20 }}
     </td>
-    >
     <td>
-      <button (click)="showDetails(e)">Details</button>
+      <button (click)="showDetails(e)" class="btn btn-info btn-sm">
+        Details
+      </button>
+    </td>
+    <td>
+      <button (click)="showEdit(e)" class="btn btn-primary btn-sm">Edit</button>
+    </td>
+    <td>
+      <button (click)="delete(e)" class="btn btn-danger btn-sm">Delete</button>
     </td>
   </tbody>
 </table>
 <!-- <app-employee-details> -->
-<div *ngIf="showingDetails">
-  <app-employee-details></app-employee-details>
-  <button (click)="hideDetails()">Hide Details</button>
+<div *ngIf="showingDetails || showingDelete">
+  <app-employee-details
+    [isDeleteConfirm]="showingDelete"
+    (close)="hideEdit()"
+  ></app-employee-details>
+</div>
+<div *ngIf="showingEdit">
+  <app-employee-details
+    [isReadOnly]="false"
+    (close)="hideEdit()"
+  ></app-employee-details>
 </div>

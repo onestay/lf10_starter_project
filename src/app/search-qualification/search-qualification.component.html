@@ -8,7 +8,7 @@
 
   <tbody>
     <ng-container *ngFor="let qualification of qualifications | async">
-      <tr>
+      <tr (click)="selectQualification(qualification)">
         <td>
           <span>{{ qualification.skill }}</span>
         </td>

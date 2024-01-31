@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QualificationListComponent } from './qualification-list/qualification-list.component';
 import { UserService } from './user.service';
-import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import {
   NgbModal,
   NgbNav,
@@ -11,8 +11,9 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './componenets/navbar/navbar.component';
 import { FilterComponent } from './componenets/filter/filter.component';
-import { QualificationService } from './services/qualification.service';
 import { AddQualificationComponent } from './add-qualification/add-qualification.component';
+import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
+import { EmployeeService } from './employee.service';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ import { AddQualificationComponent } from './add-qualification/add-qualification
     NavbarComponent,
     FilterComponent,
     QualificationListComponent,
+    EmployeeDetailsComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -34,11 +36,11 @@ import { AddQualificationComponent } from './add-qualification/add-qualification
 export class AppComponent implements OnInit {
   selectedTab: string = 'employees';
   loggedIn: boolean = false;
+  addEmployee: boolean = false;
   constructor(
     private modalService: NgbModal,
     private userService: UserService,
-    private route: ActivatedRoute,
-    private qual: QualificationService,
+    private employeeService: EmployeeService,
   ) {}
   async ngOnInit() {
     await this.userService.login();
@@ -50,6 +52,9 @@ export class AppComponent implements OnInit {
   openPopUp(): void {
     if (this.getButtonTitle() == 'Qualification') {
       this.modalService.open(AddQualificationComponent);
+    } else {
+      this.employeeService.currentEmployee.next(null);
+      this.addEmployee = true;
     }
   }
 
@@ -59,6 +64,10 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.userService.logout();
+  }
+
+  closeAddEmployee() {
+    this.addEmployee = false;
   }
   title = 'lf10StarterNew';
 }

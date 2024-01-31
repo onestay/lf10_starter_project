@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { of } from 'rxjs/internal/observable/of';
 import { map } from 'rxjs/internal/operators/map';
 import Fuse from 'fuse.js';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-search-qualification',
@@ -19,7 +20,10 @@ export class SearchQualificationComponent implements OnInit {
   allQualifications: Observable<Qualification[]> = of([]);
   qualifications: Observable<Qualification[]> = of([]);
   searchFor: string = '';
-  constructor(private qualificationService: QualificationService) {}
+  constructor(
+    private qualificationService: QualificationService,
+    private activeModal: NgbActiveModal,
+  ) {}
 
   ngOnInit(): void {
     this.allQualifications = this.qualificationService.getAllQualifications();
@@ -38,5 +42,9 @@ export class SearchQualificationComponent implements OnInit {
         return fuse.search(this.searchFor).map((result) => result.item);
       }),
     );
+  }
+
+  selectQualification(qualification: Qualification) {
+    this.activeModal.close(qualification);
   }
 }
