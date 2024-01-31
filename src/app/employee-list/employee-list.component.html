@@ -1,5 +1,25 @@
-<ul>
-  <li *ngFor="let e of employees | async">
-    {{ e.lastName }}, {{ e.firstName }}
-  </li>
-</ul>
+<table *ngIf="!showingDetails">
+  <thead>
+    <th>Lastname</th>
+    <th>Firstname</th>
+    <th>Details</th>
+  </thead>
+  <tbody *ngFor="let e of employees | async">
+    <td>{{ e.lastName }}</td>
+    <td>{{ e.firstName }}</td>
+    <td>
+      <span *ngFor="let skill of e.skillSet">
+        <p>{{ skill.skill }}</p>
+      </span>
+    </td>
+    >
+    <td>
+      <button (click)="showDetails(e)">Details</button>
+    </td>
+  </tbody>
+</table>
+<!-- <app-employee-details> -->
+<div *ngIf="showingDetails">
+  <app-employee-details></app-employee-details>
+  <button (click)="hideDetails()">Hide Details</button>
+</div>

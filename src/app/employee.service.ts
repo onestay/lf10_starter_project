@@ -14,6 +14,8 @@ export class EmployeeService {
     new BehaviorSubject<string>('');
   public employeeFilter$: Observable<string> =
     this.employeeFilterSubject.asObservable();
+  public currentEmployee: BehaviorSubject<Employee | null> =
+    new BehaviorSubject<Employee | null>(null);
   constructor(private http: HttpClient) {}
 
   setEmployeeFilter(filter: string) {
@@ -77,5 +79,9 @@ export class EmployeeService {
       `/backend/employees/${id}/qualifications`,
       { body: qualificationObj },
     );
+  }
+
+  updateEmployeeDetails(e: Employee) {
+    this.currentEmployee.next(e);
   }
 }
