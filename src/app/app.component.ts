@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QualificationListComponent } from './qualification-list/qualification-list.component';
 import { UserService } from './user.service';
-import { Router, RouterEvent, RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import {
   NgbModal,
   NgbNav,
@@ -14,7 +14,6 @@ import { FilterComponent } from './componenets/filter/filter.component';
 import { AddQualificationComponent } from './add-qualification/add-qualification.component';
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
 import { EmployeeService } from './employee.service';
-import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
